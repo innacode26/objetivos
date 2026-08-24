@@ -638,7 +638,7 @@
       }
 
       const good = dayData._good || [];
-      if (good.some(g => g)) {
+      if (good.filter(g => g).length === 3) {
         const noteIcon = document.createElement('div');
         noteIcon.className = 'day-note-icon';
         noteIcon.textContent = '';
