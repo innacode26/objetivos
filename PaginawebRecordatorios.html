@@ -394,6 +394,17 @@
       flex-shrink: 0;
     }
 
+    .daily-quote {
+      max-width: 480px;
+      margin: 0 auto 32px;
+      padding: 14px 20px;
+      text-align: center;
+      font-size: 0.85rem;
+      color: #64748b;
+      font-style: italic;
+      border-top: 1px solid #e2e8f0;
+    }
+
     /* Gestionar hábitos */
     .manage-btn {
       display: block;
@@ -437,6 +448,8 @@
 <div class="calendar-grid" id="calendarGrid"></div>
 
 <div class="summary" id="summary"></div>
+
+<div class="daily-quote" id="dailyQuote"></div>
 
 <!-- Modal día -->
 <div class="overlay" id="overlay">
@@ -504,13 +517,11 @@
   const DATA_KEY = 'mis_datos';
 
   const PALETTE = [
-    '#ef4444', // rojo    - Ejercicio
-    '#3b82f6', // azul    - Agua
-    '#f59e0b', // naranja - Leer
-    '#8b5cf6', // morado  - Buscar trabajo
-    '#10b981', // verde   - No beber alcohol
-    '#ec4899', // rosa    - Página web Víctor
-    '#06b6d4', '#84cc16', '#f97316', '#6366f1', '#14b8a6', '#a855f7'
+    '#ef4444', '#3b82f6', '#f59e0b', '#8b5cf6', '#10b981', '#ec4899',
+    '#06b6d4', '#84cc16', '#f97316', '#6366f1', '#14b8a6', '#a855f7',
+    '#e11d48', '#0ea5e9', '#d97706', '#7c3aed', '#059669', '#db2777',
+    '#0891b2', '#65a30d', '#ea580c', '#4f46e5', '#0d9488', '#9333ea',
+    '#dc2626', '#2563eb', '#ca8a04', '#7e22ce', '#16a34a', '#be185d'
   ];
 
   const DEFAULT_HABITS = [
@@ -824,7 +835,47 @@
     renderCalendar();
   });
 
+  const QUOTES = [
+    'Cada día es una nueva oportunidad para ser mejor.',
+    'El progreso, no la perfección.',
+    'Un paso pequeño sigue siendo un paso adelante.',
+    'Lo que haces hoy puede mejorar todos tus mañanas.',
+    'No tienes que ser perfecta, solo tienes que intentarlo.',
+    'La constancia es más poderosa que la intensidad.',
+    'Cuídate como cuidarías a alguien que quieres.',
+    'Los buenos hábitos son la base de una buena vida.',
+    'Date el mérito de seguir adelante.',
+    'Hoy es un buen día para tener un buen día.',
+    'Pequeños pasos, grandes cambios.',
+    'Confía en el proceso.',
+    'El esfuerzo de hoy es el resultado de mañana.',
+    'No te compares con nadie, solo con quien eras ayer.',
+    'Mereces el tiempo que te dedicas a ti misma.',
+    'La disciplina es quererte lo suficiente.',
+    'Cada objetivo cumplido es una victoria.',
+    'Tu bienestar importa.',
+    'Empieza donde estás, usa lo que tienes, haz lo que puedas.',
+    'Lo más difícil es empezar. Ya lo has hecho.',
+    'Los días malos también pasan.',
+    'Eres más fuerte de lo que crees.',
+    'Celebra los pequeños logros.',
+    'La vida mejora cuando tú decides mejorarla.',
+    'Haz hoy algo que tu yo del futuro te agradezca.',
+    'No hay prisa, pero sí hay dirección.',
+    'El descanso también es parte del camino.',
+    'Una cosa a la vez.',
+    'Eres suficiente.',
+    'Cada día que intentas cuenta.'
+  ];
+
+  function renderQuote() {
+    const dayOfYear = Math.floor((today - new Date(today.getFullYear(), 0, 0)) / 86400000);
+    const quote = QUOTES[dayOfYear % QUOTES.length];
+    document.getElementById('dailyQuote').textContent = `"${quote}"`;
+  }
+
   init();
+  renderQuote();
 </script>
 </body>
 </html>
