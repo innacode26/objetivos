@@ -431,26 +431,6 @@
 
     .managing .delete-habit-btn { display: block; }
 
-    .color-picker-row {
-      display: none;
-      flex-wrap: wrap;
-      gap: 6px;
-      padding: 8px 0 4px 34px;
-    }
-
-    .managing .color-picker-row { display: flex; }
-
-    .color-swatch {
-      width: 18px;
-      height: 18px;
-      border-radius: 50%;
-      cursor: pointer;
-      border: 2px solid transparent;
-      flex-shrink: 0;
-    }
-
-    .color-swatch.active { border-color: #1e293b; }
-
   </style>
 </head>
 <body>
@@ -540,8 +520,7 @@
     '#ef4444', '#3b82f6', '#f59e0b', '#8b5cf6', '#10b981', '#ec4899',
     '#06b6d4', '#84cc16', '#f97316', '#6366f1', '#14b8a6', '#a855f7',
     '#e11d48', '#0ea5e9', '#d97706', '#7c3aed', '#059669', '#db2777',
-    '#0891b2', '#65a30d', '#ea580c', '#4f46e5', '#0d9488', '#9333ea',
-    '#dc2626', '#2563eb', '#ca8a04', '#7e22ce', '#16a34a', '#be185d'
+    '#0891b2', '#65a30d'
   ];
 
   const DEFAULT_HABITS = [
@@ -787,31 +766,8 @@
       item.appendChild(cb);
       item.appendChild(label);
       item.appendChild(delBtn);
-
-      const colorRow = document.createElement('div');
-      colorRow.className = 'color-picker-row';
-      PALETTE.forEach(color => {
-        const swatch = document.createElement('div');
-        swatch.className = 'color-swatch' + (color === habit.color ? ' active' : '');
-        swatch.style.background = color;
-        swatch.addEventListener('click', () => changeHabitColor(habit.name, color));
-        colorRow.appendChild(swatch);
-      });
-
-      const wrapper = document.createElement('div');
-      wrapper.appendChild(item);
-      wrapper.appendChild(colorRow);
-      list.appendChild(wrapper);
+      list.appendChild(item);
     });
-  }
-
-  function changeHabitColor(name, color) {
-    const habits = getHabits();
-    const habit = habits.find(h => h.name === name);
-    if (habit) habit.color = color;
-    saveHabits(habits);
-    renderHabitList();
-    renderCalendar();
   }
 
   function toggleHabit(habit, checked) {
