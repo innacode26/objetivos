@@ -277,10 +277,13 @@
     .good-input:focus { border-color: #4f46e5; }
 
     .day-note-icon {
-      font-size: 0.75rem;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #f59e0b;
       position: absolute;
-      top: 5px;
-      right: 5px;
+      top: 6px;
+      right: 6px;
     }
 
     .emoji-section {
@@ -638,7 +641,7 @@
       if (good.some(g => g)) {
         const noteIcon = document.createElement('div');
         noteIcon.className = 'day-note-icon';
-        noteIcon.textContent = '✨';
+        noteIcon.textContent = '';
         cell.appendChild(noteIcon);
       }
 
