@@ -15,7 +15,7 @@
     }
 
     header {
-      background: #4f46e5;
+      background: #f43f5e;
       color: white;
       padding: 16px 20px;
       text-align: center;
@@ -100,14 +100,14 @@
       background: #4f46e5;
       color: white;
       border-radius: 50%;
-      width: 18px;
-      height: 18px;
+      width: 15px;
+      height: 15px;
       display: flex;
       align-items: center;
       justify-content: center;
       top: 5px;
       left: 5px;
-      font-size: 0.7rem;
+      font-size: 0.6rem;
     }
 
     .dots {
@@ -238,6 +238,7 @@
     }
 
     .good-things-section {
+      margin-top: 20px;
       margin-bottom: 20px;
     }
 
@@ -299,23 +300,36 @@
     }
 
     .emoji-picker span {
-      font-size: 1.6rem;
       cursor: pointer;
       border-radius: 10px;
-      padding: 4px 6px;
+      padding: 4px 4px;
       border: 2px solid transparent;
       transition: border-color 0.15s, transform 0.1s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
     }
 
-    .emoji-picker span:hover { transform: scale(1.2); }
+    .emoji-picker span:hover { transform: scale(1.1); }
 
     .emoji-picker span.selected {
-      border-color: #4f46e5;
-      background: #eef2ff;
+      border-color: #f43f5e;
+      background: #fff1f2;
+    }
+
+    .ei { font-size: 1.4rem; line-height: 1; }
+
+    .el {
+      font-size: 0.55rem;
+      color: #64748b;
+      text-align: center;
+      line-height: 1;
+      white-space: nowrap;
     }
 
     .day-emoji {
-      font-size: 0.85rem;
+      font-size: 0.65rem;
       line-height: 1;
       position: absolute;
       bottom: 4px;
@@ -431,16 +445,38 @@
     <div class="emoji-section">
       <p class="emoji-label">¿Cómo estás hoy?</p>
       <div class="emoji-picker" id="emojiPicker">
-        <span data-emoji="😄">😄</span>
-        <span data-emoji="😊">😊</span>
-        <span data-emoji="😐">😐</span>
-        <span data-emoji="😔">😔</span>
-        <span data-emoji="😢">😢</span>
-        <span data-emoji="😤">😤</span>
-        <span data-emoji="🤒">🤒</span>
-        <span data-emoji="😴">😴</span>
-        <span data-emoji="🥳">🥳</span>
+        <span data-emoji="🥳"><span class="ei">🥳</span><span class="el">Fiesta</span></span>
+        <span data-emoji="😄"><span class="ei">😄</span><span class="el">Feliz</span></span>
+        <span data-emoji="😊"><span class="ei">😊</span><span class="el">Bien</span></span>
+        <span data-emoji="🥰"><span class="ei">🥰</span><span class="el">Amor</span></span>
+        <span data-emoji="😎"><span class="ei">😎</span><span class="el">Cool</span></span>
+        <span data-emoji="🤩"><span class="ei">🤩</span><span class="el">Genial</span></span>
+        <span data-emoji="🤗"><span class="ei">🤗</span><span class="el">Cariño</span></span>
+        <span data-emoji="😇"><span class="ei">😇</span><span class="el">Paz</span></span>
+        <span data-emoji="😅"><span class="ei">😅</span><span class="el">Alivio</span></span>
+        <span data-emoji="🤔"><span class="ei">🤔</span><span class="el">Dudas</span></span>
+        <span data-emoji="😐"><span class="ei">😐</span><span class="el">Normal</span></span>
+        <span data-emoji="😶"><span class="ei">😶</span><span class="el">Sin más</span></span>
+        <span data-emoji="😬"><span class="ei">😬</span><span class="el">Tenso</span></span>
+        <span data-emoji="😔"><span class="ei">😔</span><span class="el">Bajo</span></span>
+        <span data-emoji="🥺"><span class="ei">🥺</span><span class="el">Triste</span></span>
+        <span data-emoji="😢"><span class="ei">😢</span><span class="el">Llorar</span></span>
+        <span data-emoji="😭"><span class="ei">😭</span><span class="el">Muy mal</span></span>
+        <span data-emoji="😤"><span class="ei">😤</span><span class="el">Frustrado</span></span>
+        <span data-emoji="😠"><span class="ei">😠</span><span class="el">Enfadado</span></span>
+        <span data-emoji="🤯"><span class="ei">🤯</span><span class="el">Agobiado</span></span>
+        <span data-emoji="😰"><span class="ei">😰</span><span class="el">Ansioso</span></span>
+        <span data-emoji="🤧"><span class="ei">🤧</span><span class="el">Resfriado</span></span>
+        <span data-emoji="🤒"><span class="ei">🤒</span><span class="el">Enfermo</span></span>
+        <span data-emoji="🥴"><span class="ei">🥴</span><span class="el">Raro</span></span>
+        <span data-emoji="😴"><span class="ei">😴</span><span class="el">Cansado</span></span>
       </div>
+    </div>
+    <div id="habitList"></div>
+    <button class="manage-btn" id="manageBtn">Gestionar objetivos</button>
+    <div class="add-habit">
+      <input type="text" id="newHabitInput" placeholder="Añadir objetivo..." maxlength="60" />
+      <button id="addHabitBtn">+</button>
     </div>
     <div class="good-things-section">
       <p class="emoji-label">3 cosas buenas de hoy ✨</p>
@@ -456,12 +492,6 @@
         <span class="good-num">3</span>
         <input type="text" class="good-input" id="good3" placeholder="Algo bueno..." maxlength="80" />
       </div>
-    </div>
-    <div id="habitList"></div>
-    <button class="manage-btn" id="manageBtn">Gestionar objetivos</button>
-    <div class="add-habit">
-      <input type="text" id="newHabitInput" placeholder="Añadir objetivo..." maxlength="60" />
-      <button id="addHabitBtn">+</button>
     </div>
   </div>
 </div>
@@ -586,6 +616,7 @@
       cell.className = 'day-cell';
 
       const isToday = d === today.getDate() && currentMonth === today.getMonth() && currentYear === today.getFullYear();
+      const isPast = new Date(currentYear, currentMonth, d) < new Date(today.getFullYear(), today.getMonth(), today.getDate());
       if (isToday) cell.classList.add('today');
 
       const numEl = document.createElement('div');
@@ -597,6 +628,11 @@
       const dayData = data[dateKey] || {};
       const habits = getHabits();
       const doneHabits = habits.filter(h => dayData[h.name]);
+
+      if (isPast) {
+        const doneCount = habits.filter(h => dayData[h.name]).length;
+        cell.style.background = doneCount >= 3 ? '#dcfce7' : '#ffe4e6';
+      }
 
       const good = dayData._good || [];
       if (good.some(g => g)) {
