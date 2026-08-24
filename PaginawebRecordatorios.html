@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mis Objetivos</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f0f4f8;
+      color: #333;
+      min-height: 100vh;
+    }
+
+    header {
+      background: #4f46e5;
+      color: white;
+      padding: 16px 20px;
+      text-align: center;
+    }
+
+    header h1 { font-size: 1.4rem; font-weight: 700; }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 20px;
+      background: white;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .nav button {
+      background: none;
+      border: none;
+      font-size: 1.4rem;
+      cursor: pointer;
+      color: #4f46e5;
+      padding: 4px 10px;
+    }
+
+    .nav span {
+      font-weight: 600;
+      font-size: 1rem;
+      color: #1e293b;
+      text-transform: capitalize;
+    }
+
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 4px;
+      padding: 12px;
+      max-width: 480px;
+      margin: 0 auto;
+    }
+
+    .day-label {
+      text-align: center;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: #64748b;
+      padding: 4px 0;
+      text-transform: uppercase;
+    }
+
+    .day-cell {
+      background: white;
+      border-radius: 10px;
+      padding: 6px 4px;
+      min-height: 56px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: border-color 0.15s;
+      position: relative;
+    }
+
+    .day-cell:hover { border-color: #4f46e5; }
+
+    .day-cell.empty { background: transparent; cursor: default; }
+
+    .day-cell.today { border-color: #4f46e5; }
+
+    .day-num {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #1e293b;
+      position: absolute;
+      top: 5px;
+      left: 6px;
+    }
+
+    .day-cell.today .day-num {
+      background: #4f46e5;
+      color: white;
+      border-radius: 50%;
+      width: 22px;
+      height: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      top: 4px;
+      left: 4px;
+    }
+
+    .dots {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2px;
+      justify-content: center;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 80%;
+    }
+
+    .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+    }
+
+    /* Modal */
+    .overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.4);
+      z-index: 10;
+      align-items: flex-end;
+      justify-content: center;
+    }
+
+    .overlay.open { display: flex; }
+
+    .modal {
+      background: white;
+      border-radius: 20px 20px 0 0;
+      padding: 24px 20px 40px;
+      width: 100%;
+      max-width: 480px;
+      max-height: 85vh;
+      overflow-y: auto;
+      animation: slideUp 0.25s ease;
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(100%); }
+      to { transform: translateY(0); }
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .modal-header h2 {
+      font-size: 1.1rem;
+      color: #1e293b;
+      text-transform: capitalize;
+    }
+
+    .modal-header button {
+      background: none;
+      border: none;
+      font-size: 1.4rem;
+      cursor: pointer;
+      color: #64748b;
+    }
+
+    .habit-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 12px;
+      border-radius: 10px;
+      margin-bottom: 6px;
+      border-left: 4px solid transparent;
+    }
+
+    .habit-item input[type="checkbox"] {
+      width: 22px;
+      height: 22px;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .habit-item label {
+      font-size: 0.95rem;
+      color: #1e293b;
+      cursor: pointer;
+      flex: 1;
+      font-weight: 500;
+    }
+
+    .habit-item input[type="checkbox"]:checked ~ label {
+      text-decoration: line-through;
+      color: #94a3b8;
+    }
+
+    /* Añadir hábito */
+    .add-habit {
+      margin-top: 20px;
+      display: flex;
+      gap: 8px;
+    }
+
+    .add-habit input {
+      flex: 1;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 10px 12px;
+      font-size: 0.9rem;
+      outline: none;
+    }
+
+    .add-habit input:focus { border-color: #4f46e5; }
+
+    .add-habit button {
+      background: #4f46e5;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 16px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .good-things-section {
+      margin-bottom: 20px;
+    }
+
+    .good-thing-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .good-num {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: #4f46e5;
+      color: white;
+      font-size: 0.75rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .good-input {
+      flex: 1;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 9px 12px;
+      font-size: 0.88rem;
+      outline: none;
+      font-family: inherit;
+      color: #334155;
+    }
+
+    .good-input:focus { border-color: #4f46e5; }
+
+    .day-note-icon {
+      font-size: 0.75rem;
+      position: absolute;
+      top: 5px;
+      right: 5px;
+    }
+
+    .emoji-section {
+      margin-bottom: 16px;
+    }
+
+    .emoji-label {
+      font-size: 0.78rem;
+      color: #64748b;
+      margin-bottom: 8px;
+    }
+
+    .emoji-picker {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .emoji-picker span {
+      font-size: 1.6rem;
+      cursor: pointer;
+      border-radius: 10px;
+      padding: 4px 6px;
+      border: 2px solid transparent;
+      transition: border-color 0.15s, transform 0.1s;
+    }
+
+    .emoji-picker span:hover { transform: scale(1.2); }
+
+    .emoji-picker span.selected {
+      border-color: #4f46e5;
+      background: #eef2ff;
+    }
+
+    .day-emoji {
+      font-size: 0.85rem;
+      line-height: 1;
+      position: absolute;
+      bottom: 4px;
+      right: 5px;
+    }
+
+    .summary {
+      max-width: 480px;
+      margin: 0 auto 24px;
+      padding: 0 12px;
+    }
+
+    .summary h3 {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #64748b;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 10px;
+    }
+
+    .summary-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .summary-name {
+      font-size: 0.82rem;
+      color: #334155;
+      width: 140px;
+      flex-shrink: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .summary-bar-wrap {
+      flex: 1;
+      background: #e2e8f0;
+      border-radius: 99px;
+      height: 8px;
+      overflow: hidden;
+    }
+
+    .summary-bar {
+      height: 100%;
+      border-radius: 99px;
+      transition: width 0.4s ease;
+    }
+
+    .summary-count {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: #64748b;
+      width: 28px;
+      text-align: right;
+      flex-shrink: 0;
+    }
+
+    /* Gestionar hábitos */
+    .manage-btn {
+      display: block;
+      margin: 0 auto 16px;
+      background: none;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 8px 16px;
+      font-size: 0.8rem;
+      color: #64748b;
+      cursor: pointer;
+    }
+
+    .delete-habit-btn {
+      display: none;
+      background: none;
+      border: none;
+      color: #ef4444;
+      font-size: 1rem;
+      cursor: pointer;
+      padding: 0 4px;
+      line-height: 1;
+    }
+
+    .managing .delete-habit-btn { display: block; }
+
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Mis Objetivos</h1>
+</header>
+
+<div class="nav">
+  <button id="prevMonth">&#8249;</button>
+  <span id="monthLabel"></span>
+  <button id="nextMonth">&#8250;</button>
+</div>
+
+<div class="calendar-grid" id="calendarGrid"></div>
+
+<div class="summary" id="summary"></div>
+
+<!-- Modal día -->
+<div class="overlay" id="overlay">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 id="modalTitle"></h2>
+      <button id="closeModal">✕</button>
+    </div>
+    <div class="emoji-section">
+      <p class="emoji-label">¿Cómo estás hoy?</p>
+      <div class="emoji-picker" id="emojiPicker">
+        <span data-emoji="😄">😄</span>
+        <span data-emoji="😊">😊</span>
+        <span data-emoji="😐">😐</span>
+        <span data-emoji="😔">😔</span>
+        <span data-emoji="😢">😢</span>
+        <span data-emoji="😤">😤</span>
+        <span data-emoji="🤒">🤒</span>
+        <span data-emoji="😴">😴</span>
+        <span data-emoji="🥳">🥳</span>
+      </div>
+    </div>
+    <div class="good-things-section">
+      <p class="emoji-label">3 cosas buenas de hoy ✨</p>
+      <div class="good-thing-row">
+        <span class="good-num">1</span>
+        <input type="text" class="good-input" id="good1" placeholder="Algo bueno..." maxlength="80" />
+      </div>
+      <div class="good-thing-row">
+        <span class="good-num">2</span>
+        <input type="text" class="good-input" id="good2" placeholder="Algo bueno..." maxlength="80" />
+      </div>
+      <div class="good-thing-row">
+        <span class="good-num">3</span>
+        <input type="text" class="good-input" id="good3" placeholder="Algo bueno..." maxlength="80" />
+      </div>
+    </div>
+    <div id="habitList"></div>
+    <button class="manage-btn" id="manageBtn">Gestionar objetivos</button>
+    <div class="add-habit">
+      <input type="text" id="newHabitInput" placeholder="Añadir objetivo..." maxlength="60" />
+      <button id="addHabitBtn">+</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const HABITS_KEY = 'mis_habitos';
+  const DATA_KEY = 'mis_datos';
+
+  const PALETTE = [
+    '#ef4444', // rojo    - Ejercicio
+    '#3b82f6', // azul    - Agua
+    '#f59e0b', // naranja - Leer
+    '#8b5cf6', // morado  - Buscar trabajo
+    '#10b981', // verde   - No beber alcohol
+    '#ec4899', // rosa    - Página web Víctor
+    '#06b6d4', '#84cc16', '#f97316', '#6366f1', '#14b8a6', '#a855f7'
+  ];
+
+  const DEFAULT_HABITS = [
+    { name: 'Ejercicio',             color: PALETTE[0] },
+    { name: 'Beber 2 litros de agua',color: PALETTE[1] },
+    { name: 'Leer',                  color: PALETTE[2] },
+    { name: 'Buscar trabajo',        color: PALETTE[3] },
+    { name: 'No beber alcohol',      color: PALETTE[4] },
+    { name: 'Página web Víctor',     color: PALETTE[5] },
+  ];
+
+  function getHabits() {
+    const stored = localStorage.getItem(HABITS_KEY);
+    if (!stored) return DEFAULT_HABITS.map(h => ({ ...h }));
+    const parsed = JSON.parse(stored);
+    // migrar formato antiguo (array de strings)
+    return parsed.map((h, i) => typeof h === 'string'
+      ? { name: h, color: PALETTE[i % PALETTE.length] }
+      : h
+    );
+  }
+
+  function saveHabits(habits) {
+    localStorage.setItem(HABITS_KEY, JSON.stringify(habits));
+  }
+
+  function nextColor(habits) {
+    return PALETTE[habits.length % PALETTE.length];
+  }
+
+  function getData() {
+    const stored = localStorage.getItem(DATA_KEY);
+    return stored ? JSON.parse(stored) : {};
+  }
+
+  function saveData(data) {
+    localStorage.setItem(DATA_KEY, JSON.stringify(data));
+  }
+
+  const DAY_LABELS = ['L', 'M', 'X', 'J', 'V', 'S', 'D'];
+  const MONTH_NAMES = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+
+  let currentYear, currentMonth, selectedDateKey;
+  const today = new Date();
+
+  function init() {
+    currentYear = today.getFullYear();
+    currentMonth = today.getMonth();
+    renderCalendar();
+  }
+
+  function renderSummary() {
+    const habits = getHabits();
+    const data = getData();
+    const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+    const el = document.getElementById('summary');
+
+    const counts = habits.map(h => {
+      let count = 0;
+      for (let d = 1; d <= daysInMonth; d++) {
+        const key = `${currentYear}-${String(currentMonth+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+        if ((data[key] || {})[h.name]) count++;
+      }
+      return { ...h, count };
+    }).filter(h => h.count > 0).sort((a, b) => b.count - a.count);
+
+    if (counts.length === 0) { el.innerHTML = ''; return; }
+
+    const max = counts[0].count;
+    el.innerHTML = `<h3>Este mes</h3>` + counts.map(h => `
+      <div class="summary-row">
+        <span class="summary-name" title="${h.name}">${h.name}</span>
+        <div class="summary-bar-wrap">
+          <div class="summary-bar" style="width:${(h.count/max)*100}%;background:${h.color}"></div>
+        </div>
+        <span class="summary-count">${h.count}d</span>
+      </div>
+    `).join('');
+  }
+
+  function renderCalendar() {
+    document.getElementById('monthLabel').textContent = `${MONTH_NAMES[currentMonth]} ${currentYear}`;
+    const grid = document.getElementById('calendarGrid');
+    grid.innerHTML = '';
+
+    DAY_LABELS.forEach(l => {
+      const div = document.createElement('div');
+      div.className = 'day-label';
+      div.textContent = l;
+      grid.appendChild(div);
+    });
+
+    const firstDay = new Date(currentYear, currentMonth, 1).getDay();
+    const offset = (firstDay === 0) ? 6 : firstDay - 1;
+    const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+    const data = getData();
+
+    for (let i = 0; i < offset; i++) {
+      const empty = document.createElement('div');
+      empty.className = 'day-cell empty';
+      grid.appendChild(empty);
+    }
+
+    for (let d = 1; d <= daysInMonth; d++) {
+      const cell = document.createElement('div');
+      cell.className = 'day-cell';
+
+      const isToday = d === today.getDate() && currentMonth === today.getMonth() && currentYear === today.getFullYear();
+      if (isToday) cell.classList.add('today');
+
+      const numEl = document.createElement('div');
+      numEl.className = 'day-num';
+      numEl.textContent = d;
+      cell.appendChild(numEl);
+
+      const dateKey = `${currentYear}-${String(currentMonth+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+      const dayData = data[dateKey] || {};
+      const habits = getHabits();
+      const doneHabits = habits.filter(h => dayData[h.name]);
+
+      const good = dayData._good || [];
+      if (good.some(g => g)) {
+        const noteIcon = document.createElement('div');
+        noteIcon.className = 'day-note-icon';
+        noteIcon.textContent = '✨';
+        cell.appendChild(noteIcon);
+      }
+
+      if (dayData._emoji) {
+        const emojiEl = document.createElement('div');
+        emojiEl.className = 'day-emoji';
+        emojiEl.textContent = dayData._emoji;
+        cell.appendChild(emojiEl);
+      }
+
+      if (doneHabits.length > 0) {
+        const dots = document.createElement('div');
+        dots.className = 'dots';
+        doneHabits.forEach(h => {
+          const dot = document.createElement('div');
+          dot.className = 'dot';
+          dot.style.background = h.color;
+          dots.appendChild(dot);
+        });
+        cell.appendChild(dots);
+      }
+
+      cell.addEventListener('click', () => openModal(dateKey, d));
+      grid.appendChild(cell);
+    }
+    renderSummary();
+  }
+
+  function openModal(dateKey, day) {
+    selectedDateKey = dateKey;
+    document.getElementById('modalTitle').textContent = `${day} de ${MONTH_NAMES[currentMonth]}`;
+    renderHabitList();
+    renderEmojiPicker();
+    renderGoodThings();
+    document.getElementById('overlay').classList.add('open');
+  }
+
+  function renderGoodThings() {
+    const data = getData();
+    const things = (data[selectedDateKey] || {})._good || ['', '', ''];
+    ['good1','good2','good3'].forEach((id, i) => {
+      document.getElementById(id).value = things[i] || '';
+    });
+  }
+
+  function saveGoodThings() {
+    const vals = ['good1','good2','good3'].map(id => document.getElementById(id).value.trim());
+    const data = getData();
+    if (!data[selectedDateKey]) data[selectedDateKey] = {};
+    data[selectedDateKey]._good = vals;
+    saveData(data);
+    renderCalendar();
+  }
+
+  ['good1','good2','good3'].forEach(id => {
+    document.getElementById(id).addEventListener('input', saveGoodThings);
+  });
+
+  function renderEmojiPicker() {
+    const data = getData();
+    const saved = (data[selectedDateKey] || {})._emoji || null;
+    document.querySelectorAll('#emojiPicker span').forEach(el => {
+      el.classList.toggle('selected', el.dataset.emoji === saved);
+    });
+  }
+
+  document.getElementById('emojiPicker').addEventListener('click', e => {
+    const span = e.target.closest('span');
+    if (!span) return;
+    const emoji = span.dataset.emoji;
+    const data = getData();
+    if (!data[selectedDateKey]) data[selectedDateKey] = {};
+    if (data[selectedDateKey]._emoji === emoji) {
+      delete data[selectedDateKey]._emoji;
+    } else {
+      data[selectedDateKey]._emoji = emoji;
+    }
+    saveData(data);
+    renderEmojiPicker();
+    renderCalendar();
+  });
+
+  function renderHabitList() {
+    const habits = getHabits();
+    const data = getData();
+    const dayData = data[selectedDateKey] || {};
+    const list = document.getElementById('habitList');
+    list.innerHTML = '';
+
+    habits.forEach(habit => {
+      const item = document.createElement('div');
+      item.className = 'habit-item';
+      item.style.borderLeftColor = habit.color;
+      item.style.background = habit.color + '15';
+
+      const cb = document.createElement('input');
+      cb.type = 'checkbox';
+      cb.id = 'h_' + habit.name;
+      cb.checked = !!dayData[habit.name];
+      cb.style.accentColor = habit.color;
+      cb.addEventListener('change', () => toggleHabit(habit.name, cb.checked));
+
+      const label = document.createElement('label');
+      label.htmlFor = 'h_' + habit.name;
+      label.textContent = habit.name;
+
+      const delBtn = document.createElement('button');
+      delBtn.className = 'delete-habit-btn';
+      delBtn.textContent = '✕';
+      delBtn.addEventListener('click', () => deleteHabit(habit.name));
+
+      item.appendChild(cb);
+      item.appendChild(label);
+      item.appendChild(delBtn);
+      list.appendChild(item);
+    });
+  }
+
+  function toggleHabit(habit, checked) {
+    const data = getData();
+    if (!data[selectedDateKey]) data[selectedDateKey] = {};
+    data[selectedDateKey][habit] = checked;
+    saveData(data);
+    renderHabitList();
+    renderCalendar();
+  }
+
+  function deleteHabit(name) {
+    const habits = getHabits().filter(h => h.name !== name);
+    saveHabits(habits);
+    renderHabitList();
+    renderCalendar();
+  }
+
+  document.getElementById('addHabitBtn').addEventListener('click', () => {
+    const input = document.getElementById('newHabitInput');
+    const val = input.value.trim();
+    if (!val) return;
+    const habits = getHabits();
+    if (!habits.find(h => h.name === val)) {
+      habits.push({ name: val, color: nextColor(habits) });
+      saveHabits(habits);
+    }
+    input.value = '';
+    renderHabitList();
+  });
+
+  document.getElementById('newHabitInput').addEventListener('keydown', e => {
+    if (e.key === 'Enter') document.getElementById('addHabitBtn').click();
+  });
+
+  document.getElementById('manageBtn').addEventListener('click', () => {
+    const list = document.getElementById('habitList');
+    const managing = list.classList.toggle('managing');
+    document.getElementById('manageBtn').textContent = managing ? 'Listo' : 'Gestionar objetivos';
+  });
+
+  document.getElementById('closeModal').addEventListener('click', () => {
+    document.getElementById('overlay').classList.remove('open');
+    const list = document.getElementById('habitList');
+    list.classList.remove('managing');
+    document.getElementById('manageBtn').textContent = 'Gestionar objetivos';
+  });
+
+  document.getElementById('overlay').addEventListener('click', e => {
+    if (e.target === document.getElementById('overlay')) {
+      document.getElementById('overlay').classList.remove('open');
+    }
+  });
+
+  document.getElementById('prevMonth').addEventListener('click', () => {
+    currentMonth--;
+    if (currentMonth < 0) { currentMonth = 11; currentYear--; }
+    renderCalendar();
+  });
+
+  document.getElementById('nextMonth').addEventListener('click', () => {
+    currentMonth++;
+    if (currentMonth > 11) { currentMonth = 0; currentYear++; }
+    renderCalendar();
+  });
+
+  init();
+</script>
+</body>
+</html>
