@@ -552,12 +552,16 @@
   }
 
   function getData() {
-    const stored = localStorage.getItem(DATA_KEY);
-    return stored ? JSON.parse(stored) : {};
+    try {
+      const stored = localStorage.getItem(DATA_KEY);
+      return stored ? JSON.parse(stored) : {};
+    } catch(e) { return {}; }
   }
 
   function saveData(data) {
-    localStorage.setItem(DATA_KEY, JSON.stringify(data));
+    try {
+      localStorage.setItem(DATA_KEY, JSON.stringify(data));
+    } catch(e) {}
   }
 
   const DAY_LABELS = ['L', 'M', 'X', 'J', 'V', 'S', 'D'];
@@ -703,7 +707,6 @@
     if (!data[selectedDateKey]) data[selectedDateKey] = {};
     data[selectedDateKey]._good = vals;
     saveData(data);
-    renderCalendar();
   }
 
   ['good1','good2','good3'].forEach(id => {
@@ -811,9 +814,9 @@
 
   document.getElementById('closeModal').addEventListener('click', () => {
     document.getElementById('overlay').classList.remove('open');
-    const list = document.getElementById('habitList');
-    list.classList.remove('managing');
+    document.getElementById('habitList').classList.remove('managing');
     document.getElementById('manageBtn').textContent = 'Gestionar objetivos';
+    renderCalendar();
   });
 
   document.getElementById('overlay').addEventListener('click', e => {
