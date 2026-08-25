@@ -339,6 +339,17 @@
       right: 5px;
     }
 
+    .frase-dia {
+      max-width: 480px;
+      margin: 0 auto 16px;
+      padding: 10px 16px;
+      font-size: 0.82rem;
+      color: #475569;
+      font-style: italic;
+      text-align: center;
+      line-height: 1.5;
+    }
+
     .summary {
       max-width: 480px;
       margin: 0 auto 24px;
@@ -405,17 +416,6 @@
       border-top: 1px solid #e2e8f0;
     }
 
-    .frase-dia {
-      background: #f8fafc;
-      border-left: 3px solid #f43f5e;
-      border-radius: 8px;
-      padding: 10px 14px;
-      margin-bottom: 18px;
-      font-size: 0.82rem;
-      color: #475569;
-      font-style: italic;
-      line-height: 1.5;
-    }
 
     /* Gestionar hábitos */
     .manage-btn {
@@ -459,6 +459,8 @@
 
 <div class="calendar-grid" id="calendarGrid"></div>
 
+<div class="frase-dia" id="fraseDia"></div>
+
 <div class="summary" id="summary"></div>
 
 <div class="daily-quote" id="dailyQuote"></div>
@@ -500,7 +502,6 @@
         <span data-emoji="😴"><span class="ei">😴</span><span class="el">Cansado</span></span>
       </div>
     </div>
-    <div class="frase-dia" id="fraseDia"></div>
     <div id="habitList"></div>
     <button class="manage-btn" id="manageBtn">Gestionar objetivos</button>
     <div class="add-habit">
@@ -586,6 +587,8 @@
   function init() {
     currentYear = today.getFullYear();
     currentMonth = today.getMonth();
+    const todayKey = `${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,'0')}-${String(today.getDate()).padStart(2,'0')}`;
+    document.getElementById('fraseDia').textContent = getFrase(todayKey);
     renderCalendar();
   }
 
@@ -737,7 +740,6 @@
   function openModal(dateKey, day) {
     selectedDateKey = dateKey;
     document.getElementById('modalTitle').textContent = `${day} de ${MONTH_NAMES[currentMonth]}`;
-    document.getElementById('fraseDia').textContent = getFrase(dateKey);
     renderHabitList();
     renderEmojiPicker();
     renderGoodThings();
