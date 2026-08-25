@@ -37,7 +37,7 @@
       border: none;
       font-size: 1.4rem;
       cursor: pointer;
-      color: #4f46e5;
+      color: #f43f5e;
       padding: 4px 10px;
     }
 
@@ -81,11 +81,9 @@
       position: relative;
     }
 
-    .day-cell:hover { border-color: #4f46e5; }
-
+    .day-cell:hover { border-color: #f43f5e; }
     .day-cell.empty { background: transparent; cursor: default; }
-
-    .day-cell.today { border-color: #4f46e5; }
+    .day-cell.today { border-color: #f43f5e; }
 
     .day-num {
       font-size: 0.7rem;
@@ -97,7 +95,7 @@
     }
 
     .day-cell.today .day-num {
-      background: #4f46e5;
+      background: #f43f5e;
       color: white;
       border-radius: 50%;
       width: 15px;
@@ -128,209 +126,6 @@
       border-radius: 50%;
     }
 
-    /* Modal */
-    .overlay {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.4);
-      z-index: 10;
-      align-items: flex-end;
-      justify-content: center;
-    }
-
-    .overlay.open { display: flex; }
-
-    .modal {
-      background: white;
-      border-radius: 20px 20px 0 0;
-      padding: 24px 20px 40px;
-      width: 100%;
-      max-width: 480px;
-      max-height: 85vh;
-      overflow-y: auto;
-      animation: slideUp 0.25s ease;
-    }
-
-    @keyframes slideUp {
-      from { transform: translateY(100%); }
-      to { transform: translateY(0); }
-    }
-
-    .modal-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 20px;
-    }
-
-    .modal-header h2 {
-      font-size: 1.1rem;
-      color: #1e293b;
-      text-transform: capitalize;
-    }
-
-    .modal-header button {
-      background: none;
-      border: none;
-      font-size: 1.4rem;
-      cursor: pointer;
-      color: #64748b;
-    }
-
-    .habit-item {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 10px 12px;
-      border-radius: 10px;
-      margin-bottom: 6px;
-      border-left: 4px solid transparent;
-    }
-
-    .habit-item input[type="checkbox"] {
-      width: 22px;
-      height: 22px;
-      cursor: pointer;
-      flex-shrink: 0;
-    }
-
-    .habit-item label {
-      font-size: 0.95rem;
-      color: #1e293b;
-      cursor: pointer;
-      flex: 1;
-      font-weight: 500;
-    }
-
-    .habit-item input[type="checkbox"]:checked ~ label {
-      text-decoration: line-through;
-      color: #94a3b8;
-    }
-
-    /* Añadir hábito */
-    .add-habit {
-      margin-top: 20px;
-      display: flex;
-      gap: 8px;
-    }
-
-    .add-habit input {
-      flex: 1;
-      border: 1px solid #e2e8f0;
-      border-radius: 8px;
-      padding: 10px 12px;
-      font-size: 0.9rem;
-      outline: none;
-    }
-
-    .add-habit input:focus { border-color: #4f46e5; }
-
-    .add-habit button {
-      background: #4f46e5;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      padding: 10px 16px;
-      font-size: 0.9rem;
-      cursor: pointer;
-      font-weight: 600;
-    }
-
-    .good-things-section {
-      margin-top: 20px;
-      margin-bottom: 20px;
-    }
-
-    .good-thing-row {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 8px;
-    }
-
-    .good-num {
-      width: 22px;
-      height: 22px;
-      border-radius: 50%;
-      background: #4f46e5;
-      color: white;
-      font-size: 0.75rem;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-
-    .good-input {
-      flex: 1;
-      border: 1px solid #e2e8f0;
-      border-radius: 8px;
-      padding: 9px 12px;
-      font-size: 0.88rem;
-      outline: none;
-      font-family: inherit;
-      color: #334155;
-    }
-
-    .good-input:focus { border-color: #4f46e5; }
-
-    .day-note-icon {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: #f59e0b;
-      position: absolute;
-      top: 6px;
-      right: 6px;
-    }
-
-    .emoji-section {
-      margin-bottom: 16px;
-    }
-
-    .emoji-label {
-      font-size: 0.78rem;
-      color: #64748b;
-      margin-bottom: 8px;
-    }
-
-    .emoji-picker {
-      display: flex;
-      gap: 6px;
-      flex-wrap: wrap;
-    }
-
-    .emoji-picker span {
-      cursor: pointer;
-      border-radius: 10px;
-      padding: 4px 4px;
-      border: 2px solid transparent;
-      transition: border-color 0.15s, transform 0.1s;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 2px;
-    }
-
-    .emoji-picker span:hover { transform: scale(1.1); }
-
-    .emoji-picker span.selected {
-      border-color: #f43f5e;
-      background: #fff1f2;
-    }
-
-    .ei { font-size: 1.4rem; line-height: 1; }
-
-    .el {
-      font-size: 0.55rem;
-      color: #64748b;
-      text-align: center;
-      line-height: 1;
-      white-space: nowrap;
-    }
-
     .day-emoji {
       font-size: 0.65rem;
       line-height: 1;
@@ -339,20 +134,10 @@
       right: 5px;
     }
 
-    .frase-dia {
-      max-width: 480px;
-      margin: 0 auto 16px;
-      padding: 10px 16px;
-      font-size: 0.82rem;
-      color: #475569;
-      font-style: italic;
-      text-align: center;
-      line-height: 1.5;
-    }
-
+    /* Summary */
     .summary {
       max-width: 480px;
-      margin: 0 auto 24px;
+      margin: 0 auto 16px;
       padding: 0 12px;
     }
 
@@ -405,29 +190,141 @@
       flex-shrink: 0;
     }
 
-    .daily-quote {
+    /* Frase */
+    .frase-dia {
       max-width: 480px;
-      margin: 0 auto 32px;
-      padding: 14px 20px;
-      text-align: center;
-      font-size: 0.85rem;
-      color: #64748b;
+      margin: 0 auto 24px;
+      padding: 10px 16px;
+      font-size: 0.82rem;
+      color: #475569;
       font-style: italic;
-      border-top: 1px solid #e2e8f0;
+      text-align: center;
+      line-height: 1.5;
     }
 
+    /* Modal */
+    .overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.4);
+      z-index: 10;
+      align-items: flex-end;
+      justify-content: center;
+    }
 
-    /* Gestionar hábitos */
-    .manage-btn {
-      display: block;
-      margin: 0 auto 16px;
+    .overlay.open { display: flex; }
+
+    .modal {
+      background: white;
+      border-radius: 20px 20px 0 0;
+      padding: 24px 20px 40px;
+      width: 100%;
+      max-width: 480px;
+      max-height: 85vh;
+      overflow-y: auto;
+      animation: slideUp 0.25s ease;
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(100%); }
+      to { transform: translateY(0); }
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .modal-header h2 {
+      font-size: 1.1rem;
+      color: #1e293b;
+      text-transform: capitalize;
+    }
+
+    .modal-header button {
       background: none;
-      border: 1px solid #e2e8f0;
-      border-radius: 8px;
-      padding: 8px 16px;
-      font-size: 0.8rem;
-      color: #64748b;
+      border: none;
+      font-size: 1.4rem;
       cursor: pointer;
+      color: #64748b;
+    }
+
+    /* Emoji picker */
+    .emoji-section { margin-bottom: 16px; }
+
+    .emoji-label {
+      font-size: 0.78rem;
+      color: #64748b;
+      margin-bottom: 8px;
+    }
+
+    .emoji-picker {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .emoji-picker span {
+      cursor: pointer;
+      border-radius: 10px;
+      padding: 4px 4px;
+      border: 2px solid transparent;
+      transition: border-color 0.15s, transform 0.1s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+    }
+
+    .emoji-picker span:hover { transform: scale(1.1); }
+
+    .emoji-picker span.selected {
+      border-color: #f43f5e;
+      background: #fff1f2;
+    }
+
+    .ei { font-size: 1.4rem; line-height: 1; }
+
+    .el {
+      font-size: 0.55rem;
+      color: #64748b;
+      text-align: center;
+      line-height: 1;
+      white-space: nowrap;
+    }
+
+    /* Habit items */
+    .habit-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 12px;
+      border-radius: 10px;
+      margin-bottom: 6px;
+      border-left: 4px solid transparent;
+    }
+
+    .habit-item input[type="checkbox"] {
+      width: 22px;
+      height: 22px;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .habit-item label {
+      font-size: 0.95rem;
+      color: #1e293b;
+      cursor: pointer;
+      flex: 1;
+      font-weight: 500;
+    }
+
+    .habit-item input[type="checkbox"]:checked ~ label {
+      text-decoration: line-through;
+      color: #94a3b8;
     }
 
     .delete-habit-btn {
@@ -443,6 +340,87 @@
 
     .managing .delete-habit-btn { display: block; }
 
+    /* Gestionar */
+    .manage-btn {
+      display: block;
+      margin: 0 auto 16px;
+      background: none;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 8px 16px;
+      font-size: 0.8rem;
+      color: #64748b;
+      cursor: pointer;
+    }
+
+    /* Añadir hábito */
+    .add-habit {
+      margin-top: 4px;
+      display: flex;
+      gap: 8px;
+    }
+
+    .add-habit input {
+      flex: 1;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 10px 12px;
+      font-size: 0.9rem;
+      outline: none;
+    }
+
+    .add-habit input:focus { border-color: #f43f5e; }
+
+    .add-habit button {
+      background: #f43f5e;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 16px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    /* 3 cosas buenas */
+    .good-things-section {
+      margin-top: 20px;
+      margin-bottom: 20px;
+    }
+
+    .good-thing-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .good-num {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: #f43f5e;
+      color: white;
+      font-size: 0.75rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .good-input {
+      flex: 1;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 9px 12px;
+      font-size: 0.88rem;
+      outline: none;
+      font-family: inherit;
+      color: #334155;
+    }
+
+    .good-input:focus { border-color: #f43f5e; }
   </style>
 </head>
 <body>
@@ -459,11 +437,9 @@
 
 <div class="calendar-grid" id="calendarGrid"></div>
 
-<div class="frase-dia" id="fraseDia"></div>
-
 <div class="summary" id="summary"></div>
 
-<div class="daily-quote" id="dailyQuote"></div>
+<div class="frase-dia" id="fraseDia"></div>
 
 <!-- Modal día -->
 <div class="overlay" id="overlay">
@@ -472,6 +448,7 @@
       <h2 id="modalTitle"></h2>
       <button id="closeModal">✕</button>
     </div>
+
     <div class="emoji-section">
       <p class="emoji-label">¿Cómo estás hoy?</p>
       <div class="emoji-picker" id="emojiPicker">
@@ -502,12 +479,14 @@
         <span data-emoji="😴"><span class="ei">😴</span><span class="el">Cansado</span></span>
       </div>
     </div>
+
     <div id="habitList"></div>
     <button class="manage-btn" id="manageBtn">Gestionar objetivos</button>
     <div class="add-habit">
       <input type="text" id="newHabitInput" placeholder="Añadir objetivo..." maxlength="60" />
       <button id="addHabitBtn">+</button>
     </div>
+
     <div class="good-things-section">
       <p class="emoji-label">3 cosas buenas de hoy ✨</p>
       <div class="good-thing-row">
@@ -528,37 +507,76 @@
 
 <script>
   const HABITS_KEY = 'mis_habitos';
-  const DATA_KEY = 'mis_datos';
+  const DATA_KEY   = 'mis_datos';
 
   const PALETTE = [
-    '#ef4444', '#3b82f6', '#f59e0b', '#8b5cf6', '#10b981', '#ec4899',
-    '#06b6d4', '#84cc16', '#f97316', '#6366f1', '#14b8a6', '#a855f7',
-    '#e11d48', '#0ea5e9', '#d97706', '#7c3aed', '#059669', '#db2777',
-    '#0891b2', '#65a30d'
+    '#ef4444','#3b82f6','#f59e0b','#8b5cf6','#10b981','#ec4899',
+    '#06b6d4','#84cc16','#f97316','#6366f1','#14b8a6','#a855f7'
   ];
 
   const DEFAULT_HABITS = [
-    { name: 'Ejercicio',             color: PALETTE[0] },
-    { name: 'Beber 2 litros de agua',color: PALETTE[1] },
-    { name: 'Leer',                  color: PALETTE[2] },
-    { name: 'Buscar trabajo',        color: PALETTE[3] },
-    { name: 'No beber alcohol',      color: PALETTE[4] },
-    { name: 'Página web Víctor',     color: PALETTE[5] },
+    { name: 'Ejercicio',              color: PALETTE[0] },
+    { name: 'Beber 2 litros de agua', color: PALETTE[1] },
+    { name: 'Leer',                   color: PALETTE[2] },
+    { name: 'Buscar trabajo',         color: PALETTE[3] },
+    { name: 'No beber alcohol',       color: PALETTE[4] },
+    { name: 'Página web Víctor',      color: PALETTE[5] },
   ];
 
+  const FRASES = [
+    'Cada día es una nueva oportunidad para ser mejor que ayer.',
+    'El secreto para avanzar es empezar.',
+    'No tienes que ser perfecto, solo tienes que intentarlo.',
+    'Los pequeños pasos también cuentan.',
+    'Cuídate hoy para estar bien mañana.',
+    'Un día a la vez, un paso a la vez.',
+    'Lo que haces hoy puede mejorar todos tus mañanas.',
+    'El progreso, no la perfección, es el objetivo.',
+    'Cada esfuerzo que haces te acerca a donde quieres estar.',
+    'Tú puedes con esto.',
+    'Hoy es un buen día para tener un buen día.',
+    'La constancia supera al talento.',
+    'No pasa nada si ayer no fue perfecto. Hoy es otro día.',
+    'Pequeñas victorias, grandes cambios.',
+    'Hazlo con calma, pero hazlo.',
+    'Tu única competencia eres tú de ayer.',
+    'Confía en el proceso.',
+    'Mereces cuidarte tanto como cuidas a los demás.',
+    'El mejor momento para empezar era antes. El segundo mejor es ahora.',
+    'Sé amable contigo mismo.',
+    'Un día menos perfecto sigue siendo un día.',
+    'Lo importante no es la velocidad, sino no parar.',
+    'Cada día que intentas algo cuenta.',
+    'Respira. Estás haciendo lo que puedes.',
+    'No necesitas motivación para empezar, necesitas empezar para tener motivación.',
+    'Eres más fuerte de lo que crees.',
+    'Las rutinas construyen el futuro.',
+    'Date el crédito que mereces.',
+    'El camino se hace al andar.',
+    'Hoy también vale la pena.'
+  ];
+
+  const DAY_LABELS   = ['L','M','X','J','V','S','D'];
+  const MONTH_NAMES  = ['Enero','Febrero','Marzo','Abril','Mayo','Junio',
+                        'Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+
+  let currentYear, currentMonth, selectedDateKey;
+  const today = new Date();
+
   function getHabits() {
-    const stored = localStorage.getItem(HABITS_KEY);
-    if (!stored) return DEFAULT_HABITS.map(h => ({ ...h }));
-    const parsed = JSON.parse(stored);
-    // migrar formato antiguo (array de strings)
-    return parsed.map((h, i) => typeof h === 'string'
-      ? { name: h, color: PALETTE[i % PALETTE.length] }
-      : h
-    );
+    try {
+      const stored = localStorage.getItem(HABITS_KEY);
+      if (!stored) return DEFAULT_HABITS.map(h => ({ ...h }));
+      const parsed = JSON.parse(stored);
+      return parsed.map((h, i) => typeof h === 'string'
+        ? { name: h, color: PALETTE[i % PALETTE.length] }
+        : h
+      );
+    } catch(e) { return DEFAULT_HABITS.map(h => ({ ...h })); }
   }
 
   function saveHabits(habits) {
-    localStorage.setItem(HABITS_KEY, JSON.stringify(habits));
+    try { localStorage.setItem(HABITS_KEY, JSON.stringify(habits)); } catch(e) {}
   }
 
   function nextColor(habits) {
@@ -573,28 +591,107 @@
   }
 
   function saveData(data) {
-    try {
-      localStorage.setItem(DATA_KEY, JSON.stringify(data));
-    } catch(e) {}
+    try { localStorage.setItem(DATA_KEY, JSON.stringify(data)); } catch(e) {}
   }
 
-  const DAY_LABELS = ['L', 'M', 'X', 'J', 'V', 'S', 'D'];
-  const MONTH_NAMES = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
-
-  let currentYear, currentMonth, selectedDateKey;
-  const today = new Date();
-
-  function init() {
-    currentYear = today.getFullYear();
-    currentMonth = today.getMonth();
-    const todayKey = `${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,'0')}-${String(today.getDate()).padStart(2,'0')}`;
-    document.getElementById('fraseDia').textContent = getFrase(todayKey);
-    renderCalendar();
+  function getFrase(dateKey) {
+    const [y, m, d] = dateKey.split('-').map(Number);
+    const idx = (y * 366 + m * 31 + d) % FRASES.length;
+    return FRASES[idx];
   }
 
+  /* ── Calendario ── */
+  function renderCalendar() {
+    document.getElementById('monthLabel').textContent =
+      `${MONTH_NAMES[currentMonth]} ${currentYear}`;
+    const grid = document.getElementById('calendarGrid');
+    grid.innerHTML = '';
+
+    DAY_LABELS.forEach(l => {
+      const div = document.createElement('div');
+      div.className = 'day-label';
+      div.textContent = l;
+      grid.appendChild(div);
+    });
+
+    const firstDay = new Date(currentYear, currentMonth, 1).getDay();
+    const offset   = firstDay === 0 ? 6 : firstDay - 1;
+    const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+    const data   = getData();
+    const habits = getHabits();
+
+    for (let i = 0; i < offset; i++) {
+      const empty = document.createElement('div');
+      empty.className = 'day-cell empty';
+      grid.appendChild(empty);
+    }
+
+    for (let d = 1; d <= daysInMonth; d++) {
+      const cell = document.createElement('div');
+      cell.className = 'day-cell';
+
+      const isToday = d === today.getDate() &&
+                      currentMonth === today.getMonth() &&
+                      currentYear  === today.getFullYear();
+      const isPast  = new Date(currentYear, currentMonth, d) <
+                      new Date(today.getFullYear(), today.getMonth(), today.getDate());
+
+      if (isToday) cell.classList.add('today');
+
+      const numEl = document.createElement('div');
+      numEl.className = 'day-num';
+      numEl.textContent = d;
+      cell.appendChild(numEl);
+
+      const dateKey = `${currentYear}-${String(currentMonth+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+      const dayData = data[dateKey] || {};
+
+      // Color de fondo días pasados
+      if (isPast) {
+        const doneCount = habits.filter(h => dayData[h.name]).length;
+        cell.style.background = doneCount >= 3 ? '#dcfce7' : '#ffe4e6';
+      }
+
+      // Borde dorado si 3 cosas buenas
+      const good = dayData._good || [];
+      if (good.filter(g => g).length === 3) {
+        cell.style.outline = '2px solid #f59e0b';
+        cell.style.outlineOffset = '-2px';
+      }
+
+      // Emoji del día
+      if (dayData._emoji) {
+        const emojiEl = document.createElement('div');
+        emojiEl.className = 'day-emoji';
+        emojiEl.textContent = dayData._emoji;
+        cell.appendChild(emojiEl);
+      }
+
+      // Puntos de hábitos
+      const doneHabits = habits.filter(h => dayData[h.name]);
+      if (doneHabits.length > 0) {
+        const dots = document.createElement('div');
+        dots.className = 'dots';
+        doneHabits.forEach(h => {
+          const dot = document.createElement('div');
+          dot.className = 'dot';
+          dot.style.background = h.color;
+          dots.appendChild(dot);
+        });
+        cell.appendChild(dots);
+      }
+
+      cell.addEventListener('click', () => openModal(dateKey, d));
+      grid.appendChild(cell);
+    }
+
+    renderSummary();
+  }
+
+  /* ── Resumen del mes ── */
   function renderSummary() {
     const habits = getHabits();
-    const data = getData();
+    const data   = getData();
     const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
     const el = document.getElementById('summary');
 
@@ -621,180 +718,22 @@
     `).join('');
   }
 
-  function renderCalendar() {
-    document.getElementById('monthLabel').textContent = `${MONTH_NAMES[currentMonth]} ${currentYear}`;
-    const grid = document.getElementById('calendarGrid');
-    grid.innerHTML = '';
-
-    DAY_LABELS.forEach(l => {
-      const div = document.createElement('div');
-      div.className = 'day-label';
-      div.textContent = l;
-      grid.appendChild(div);
-    });
-
-    const firstDay = new Date(currentYear, currentMonth, 1).getDay();
-    const offset = (firstDay === 0) ? 6 : firstDay - 1;
-    const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
-    const data = getData();
-
-    for (let i = 0; i < offset; i++) {
-      const empty = document.createElement('div');
-      empty.className = 'day-cell empty';
-      grid.appendChild(empty);
-    }
-
-    for (let d = 1; d <= daysInMonth; d++) {
-      const cell = document.createElement('div');
-      cell.className = 'day-cell';
-
-      const isToday = d === today.getDate() && currentMonth === today.getMonth() && currentYear === today.getFullYear();
-      const isPast = new Date(currentYear, currentMonth, d) < new Date(today.getFullYear(), today.getMonth(), today.getDate());
-      if (isToday) cell.classList.add('today');
-
-      const numEl = document.createElement('div');
-      numEl.className = 'day-num';
-      numEl.textContent = d;
-      cell.appendChild(numEl);
-
-      const dateKey = `${currentYear}-${String(currentMonth+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
-      const dayData = data[dateKey] || {};
-      const habits = getHabits();
-      const doneHabits = habits.filter(h => dayData[h.name]);
-
-      if (isPast) {
-        const doneCount = habits.filter(h => dayData[h.name]).length;
-        cell.style.background = doneCount >= 3 ? '#dcfce7' : '#ffe4e6';
-      }
-
-      const good = dayData._good || [];
-      if (good.filter(g => g).length === 3) {
-        cell.style.outline = '2px solid #f59e0b';
-        cell.style.outlineOffset = '-2px';
-      }
-
-      if (dayData._emoji) {
-        const emojiEl = document.createElement('div');
-        emojiEl.className = 'day-emoji';
-        emojiEl.textContent = dayData._emoji;
-        cell.appendChild(emojiEl);
-      }
-
-      if (doneHabits.length > 0) {
-        const dots = document.createElement('div');
-        dots.className = 'dots';
-        doneHabits.forEach(h => {
-          const dot = document.createElement('div');
-          dot.className = 'dot';
-          dot.style.background = h.color;
-          dots.appendChild(dot);
-        });
-        cell.appendChild(dots);
-      }
-
-      cell.addEventListener('click', () => openModal(dateKey, d));
-      grid.appendChild(cell);
-    }
-    renderSummary();
-  }
-
-  const FRASES = [
-    "Cada día es una nueva oportunidad para ser mejor que ayer.",
-    "El secreto para avanzar es empezar.",
-    "No tienes que ser perfecto, solo tienes que intentarlo.",
-    "Los pequeños pasos también cuentan.",
-    "Cuídate hoy para estar bien mañana.",
-    "Un día a la vez, un paso a la vez.",
-    "Lo que haces hoy puede mejorar todos tus mañanas.",
-    "El progreso, no la perfección, es el objetivo.",
-    "Cada esfuerzo que haces te acerca a donde quieres estar.",
-    "Tú puedes con esto.",
-    "Hoy es un buen día para tener un buen día.",
-    "La constancia supera al talento.",
-    "No pasa nada si ayer no fue perfecto. Hoy es otro día.",
-    "Pequeñas victorias, grandes cambios.",
-    "Hazlo con calma, pero hazlo.",
-    "Tu única competencia eres tú de ayer.",
-    "Confía en el proceso.",
-    "Mereces cuidarte tanto como cuidas a los demás.",
-    "El mejor momento para empezar era antes. El segundo mejor es ahora.",
-    "Sé amable contigo mismo.",
-    "Un día menos perfecto sigue siendo un día.",
-    "Lo importante no es la velocidad, sino no parar.",
-    "Cada día que intentas algo cuenta.",
-    "Respira. Estás haciendo lo que puedes.",
-    "No necesitas motivación para empezar, necesitas empezar para tener motivación.",
-    "Eres más fuerte de lo que crees.",
-    "Las rutinas construyen el futuro.",
-    "Date el crédito que mereces.",
-    "El camino se hace al andar.",
-    "Hoy también vale la pena."
-  ];
-
-  function getFrase(dateKey) {
-    const [y, m, d] = dateKey.split('-').map(Number);
-    const idx = (y * 366 + m * 31 + d) % FRASES.length;
-    return FRASES[idx];
-  }
-
+  /* ── Modal ── */
   function openModal(dateKey, day) {
     selectedDateKey = dateKey;
-    document.getElementById('modalTitle').textContent = `${day} de ${MONTH_NAMES[currentMonth]}`;
+    document.getElementById('modalTitle').textContent =
+      `${day} de ${MONTH_NAMES[currentMonth]}`;
     renderHabitList();
     renderEmojiPicker();
     renderGoodThings();
     document.getElementById('overlay').classList.add('open');
   }
 
-  function renderGoodThings() {
-    const data = getData();
-    const things = (data[selectedDateKey] || {})._good || ['', '', ''];
-    ['good1','good2','good3'].forEach((id, i) => {
-      document.getElementById(id).value = things[i] || '';
-    });
-  }
-
-  function saveGoodThings() {
-    const vals = ['good1','good2','good3'].map(id => document.getElementById(id).value.trim());
-    const data = getData();
-    if (!data[selectedDateKey]) data[selectedDateKey] = {};
-    data[selectedDateKey]._good = vals;
-    saveData(data);
-  }
-
-  ['good1','good2','good3'].forEach(id => {
-    document.getElementById(id).addEventListener('input', saveGoodThings);
-  });
-
-  function renderEmojiPicker() {
-    const data = getData();
-    const saved = (data[selectedDateKey] || {})._emoji || null;
-    document.querySelectorAll('#emojiPicker span').forEach(el => {
-      el.classList.toggle('selected', el.dataset.emoji === saved);
-    });
-  }
-
-  document.getElementById('emojiPicker').addEventListener('click', e => {
-    const span = e.target.closest('[data-emoji]');
-    if (!span) return;
-    const emoji = span.dataset.emoji;
-    const data = getData();
-    if (!data[selectedDateKey]) data[selectedDateKey] = {};
-    if (data[selectedDateKey]._emoji === emoji) {
-      delete data[selectedDateKey]._emoji;
-    } else {
-      data[selectedDateKey]._emoji = emoji;
-    }
-    saveData(data);
-    renderEmojiPicker();
-    renderCalendar();
-  });
-
   function renderHabitList() {
-    const habits = getHabits();
-    const data = getData();
+    const habits  = getHabits();
+    const data    = getData();
     const dayData = data[selectedDateKey] || {};
-    const list = document.getElementById('habitList');
+    const list    = document.getElementById('habitList');
     list.innerHTML = '';
 
     habits.forEach(habit => {
@@ -805,17 +744,17 @@
 
       const cb = document.createElement('input');
       cb.type = 'checkbox';
-      cb.id = 'h_' + habit.name;
+      cb.id   = 'h_' + habit.name;
       cb.checked = !!dayData[habit.name];
       cb.style.accentColor = habit.color;
       cb.addEventListener('change', () => toggleHabit(habit.name, cb.checked));
 
       const label = document.createElement('label');
-      label.htmlFor = 'h_' + habit.name;
+      label.htmlFor   = 'h_' + habit.name;
       label.textContent = habit.name;
 
       const delBtn = document.createElement('button');
-      delBtn.className = 'delete-habit-btn';
+      delBtn.className   = 'delete-habit-btn';
       delBtn.textContent = '✕';
       delBtn.addEventListener('click', () => deleteHabit(habit.name));
 
@@ -826,25 +765,71 @@
     });
   }
 
-  function toggleHabit(habit, checked) {
+  function toggleHabit(name, checked) {
     const data = getData();
     if (!data[selectedDateKey]) data[selectedDateKey] = {};
-    data[selectedDateKey][habit] = checked;
+    data[selectedDateKey][name] = checked;
     saveData(data);
     renderHabitList();
-    renderCalendar();
   }
 
   function deleteHabit(name) {
     const habits = getHabits().filter(h => h.name !== name);
     saveHabits(habits);
     renderHabitList();
-    renderCalendar();
   }
 
+  /* ── Emoji ── */
+  function renderEmojiPicker() {
+    const data  = getData();
+    const saved = (data[selectedDateKey] || {})._emoji || null;
+    document.querySelectorAll('#emojiPicker span').forEach(el => {
+      el.classList.toggle('selected', el.dataset.emoji === saved);
+    });
+  }
+
+  document.getElementById('emojiPicker').addEventListener('click', e => {
+    const span = e.target.closest('[data-emoji]');
+    if (!span) return;
+    const emoji = span.dataset.emoji;
+    const data  = getData();
+    if (!data[selectedDateKey]) data[selectedDateKey] = {};
+    if (data[selectedDateKey]._emoji === emoji) {
+      delete data[selectedDateKey]._emoji;
+    } else {
+      data[selectedDateKey]._emoji = emoji;
+    }
+    saveData(data);
+    renderEmojiPicker();
+  });
+
+  /* ── 3 cosas buenas ── */
+  function renderGoodThings() {
+    const data   = getData();
+    const things = (data[selectedDateKey] || {})._good || ['','',''];
+    ['good1','good2','good3'].forEach((id, i) => {
+      document.getElementById(id).value = things[i] || '';
+    });
+  }
+
+  function saveGoodThings() {
+    const vals = ['good1','good2','good3'].map(id =>
+      document.getElementById(id).value.trim()
+    );
+    const data = getData();
+    if (!data[selectedDateKey]) data[selectedDateKey] = {};
+    data[selectedDateKey]._good = vals;
+    saveData(data);
+  }
+
+  ['good1','good2','good3'].forEach(id => {
+    document.getElementById(id).addEventListener('input', saveGoodThings);
+  });
+
+  /* ── Añadir objetivo ── */
   document.getElementById('addHabitBtn').addEventListener('click', () => {
     const input = document.getElementById('newHabitInput');
-    const val = input.value.trim();
+    const val   = input.value.trim();
     if (!val) return;
     const habits = getHabits();
     if (!habits.find(h => h.name === val)) {
@@ -859,12 +844,15 @@
     if (e.key === 'Enter') document.getElementById('addHabitBtn').click();
   });
 
+  /* ── Gestionar ── */
   document.getElementById('manageBtn').addEventListener('click', () => {
-    const list = document.getElementById('habitList');
+    const list     = document.getElementById('habitList');
     const managing = list.classList.toggle('managing');
-    document.getElementById('manageBtn').textContent = managing ? 'Listo' : 'Gestionar objetivos';
+    document.getElementById('manageBtn').textContent =
+      managing ? 'Listo' : 'Gestionar objetivos';
   });
 
+  /* ── Cerrar modal ── */
   document.getElementById('closeModal').addEventListener('click', () => {
     document.getElementById('overlay').classList.remove('open');
     document.getElementById('habitList').classList.remove('managing');
@@ -875,9 +863,13 @@
   document.getElementById('overlay').addEventListener('click', e => {
     if (e.target === document.getElementById('overlay')) {
       document.getElementById('overlay').classList.remove('open');
+      document.getElementById('habitList').classList.remove('managing');
+      document.getElementById('manageBtn').textContent = 'Gestionar objetivos';
+      renderCalendar();
     }
   });
 
+  /* ── Navegación mes ── */
   document.getElementById('prevMonth').addEventListener('click', () => {
     currentMonth--;
     if (currentMonth < 0) { currentMonth = 11; currentYear--; }
@@ -890,47 +882,16 @@
     renderCalendar();
   });
 
-  const QUOTES = [
-    'Cada día es una nueva oportunidad para ser mejor.',
-    'El progreso, no la perfección.',
-    'Un paso pequeño sigue siendo un paso adelante.',
-    'Lo que haces hoy puede mejorar todos tus mañanas.',
-    'No tienes que ser perfecta, solo tienes que intentarlo.',
-    'La constancia es más poderosa que la intensidad.',
-    'Cuídate como cuidarías a alguien que quieres.',
-    'Los buenos hábitos son la base de una buena vida.',
-    'Date el mérito de seguir adelante.',
-    'Hoy es un buen día para tener un buen día.',
-    'Pequeños pasos, grandes cambios.',
-    'Confía en el proceso.',
-    'El esfuerzo de hoy es el resultado de mañana.',
-    'No te compares con nadie, solo con quien eras ayer.',
-    'Mereces el tiempo que te dedicas a ti misma.',
-    'La disciplina es quererte lo suficiente.',
-    'Cada objetivo cumplido es una victoria.',
-    'Tu bienestar importa.',
-    'Empieza donde estás, usa lo que tienes, haz lo que puedas.',
-    'Lo más difícil es empezar. Ya lo has hecho.',
-    'Los días malos también pasan.',
-    'Eres más fuerte de lo que crees.',
-    'Celebra los pequeños logros.',
-    'La vida mejora cuando tú decides mejorarla.',
-    'Haz hoy algo que tu yo del futuro te agradezca.',
-    'No hay prisa, pero sí hay dirección.',
-    'El descanso también es parte del camino.',
-    'Una cosa a la vez.',
-    'Eres suficiente.',
-    'Cada día que intentas cuenta.'
-  ];
-
-  function renderQuote() {
-    const dayOfYear = Math.floor((today - new Date(today.getFullYear(), 0, 0)) / 86400000);
-    const quote = QUOTES[dayOfYear % QUOTES.length];
-    document.getElementById('dailyQuote').textContent = `"${quote}"`;
+  /* ── Init ── */
+  function init() {
+    currentYear  = today.getFullYear();
+    currentMonth = today.getMonth();
+    const todayKey = `${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,'0')}-${String(today.getDate()).padStart(2,'0')}`;
+    document.getElementById('fraseDia').textContent = getFrase(todayKey);
+    renderCalendar();
   }
 
   init();
-  renderQuote();
 </script>
 </body>
 </html>
