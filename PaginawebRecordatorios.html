@@ -722,7 +722,7 @@
   }
 
   document.getElementById('emojiPicker').addEventListener('click', e => {
-    const span = e.target.closest('span');
+    const span = e.target.closest('[data-emoji]');
     if (!span) return;
     const emoji = span.dataset.emoji;
     const data = getData();
